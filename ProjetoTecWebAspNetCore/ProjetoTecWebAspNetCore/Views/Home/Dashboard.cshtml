@@ -1,0 +1,321 @@
+﻿@{
+    ViewData["Title"] = "Contact";
+}
+<h2>@ViewData["Title"]</h2>
+<h3>@ViewData["Message"]</h3>
+
+
+
+<body class="fixed-left">
+
+    <div id="wrapper">
+
+        <!-- Top Bar Start -->
+        <div class="topbar" style="padding-top:50px;">
+
+            <!-- LOGO -->
+            <div class="topbar-left">
+                <a href="/" class="logo">
+                    <span>
+                        <img src="~/images/banner1.svg" alt="logo-com-texto">
+                    </span>
+                    <i class="mdi">
+                        <img src="~/images/banner2.svg" alt="logo">
+                    </i>
+                </a>
+                <!-- Image logo -->
+                <!--<a href="index.html" class="logo">-->
+                <!--<span>-->
+                <!--<img src="/static/assets//images/logo.png" alt="" height="30">-->
+                <!--</span>-->
+                <!--<i>-->
+                <!--<img src="/static/assets//images/logo_sm.png" alt="" height="28">-->
+                <!--</i>-->
+                <!--</a>-->
+            </div>
+
+            <!-- Button mobile view to collapse sidebar menu -->
+            <div class="navbar navbar-default" role="navigation">
+                <div class="container">
+
+                    <!-- Navbar-left -->
+                    <ul class="nav navbar-nav navbar-left">
+                        <li>
+                            <button class="button-menu-mobile open-left waves-effect">
+                                <i class="mdi mdi-menu"></i>
+                            </button>
+                        </li>
+                        <li class="hidden-xs">
+                            <form role="search" class="app-search">
+                                <input type="text" placeholder="Search..." class="form-control">
+                                <a href="">
+                                    <i class="fa fa-search"></i>
+                                </a>
+                            </form>
+                        </li>
+                        <li class="hidden-xs">
+                            <a href="#" class="menu-item">New</a>
+                        </li>
+                        <li class="dropdown hidden-xs">
+                            <a data-toggle="dropdown" class="dropdown-toggle menu-item" href="#" aria-expanded="false">
+                                English
+                                <span class="caret"></span>
+                            </a>
+                            <ul role="menu" class="dropdown-menu">
+                                <li>
+                                    <a href="#">German</a>
+                                </li>
+                                <li>
+                                    <a href="#">French</a>
+                                </li>
+                                <li>
+                                    <a href="#">Italian</a>
+                                </li>
+                                <li>
+                                    <a href="#">Spanish</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                    <!-- Right(Notification) -->
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="#" class="right-menu-item dropdown-toggle" data-toggle="dropdown">
+                                <i class="mdi mdi-bell"></i>
+                                <span class="badge up bg-success">4</span>
+                            </a>
+
+                            <ul class="dropdown-menu dropdown-menu-right arrow-dropdown-menu arrow-menu-right dropdown-lg user-list notify-list">
+                                <li>
+                                    <h5>Notifications</h5>
+                                </li>
+                                <li>
+                                    <a href="#" class="user-list-item">
+                                        <div class="icon bg-info">
+                                            <i class="mdi mdi-account"></i>
+                                        </div>
+                                        <div class="user-desc">
+                                            <span class="name">New Signup</span>
+                                            <span class="time">5 hours ago</span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="all-msgs text-center">
+                                    <p class="m-0">
+                                        <a href="#">See all Notification</a>
+                                    </p>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li>
+                            <a href="#" class="right-menu-item dropdown-toggle" data-toggle="dropdown">
+                                <i class="mdi mdi-email"></i>
+                                <span class="badge up bg-danger">8</span>
+                            </a>
+
+                            <ul class="dropdown-menu dropdown-menu-right arrow-dropdown-menu arrow-menu-right dropdown-lg user-list notify-list">
+                                <li>
+                                    <h5>Messages</h5>
+                                </li>
+                                <li>
+                                    <a href="#" class="user-list-item">
+                                        <div class="avatar">
+                                            <img src="/static/assets//images/users/avatar-2.jpg" alt="">
+                                        </div>
+                                        <div class="user-desc">
+                                            <span class="name">Patricia Beach</span>
+                                            <span class="desc">There are new settings available</span>
+                                            <span class="time">2 hours ago</span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="all-msgs text-center">
+                                    <p class="m-0">
+                                        <a href="#">See all Messages</a>
+                                    </p>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li>
+                            <a href="javascript:void(0);" class="right-bar-toggle right-menu-item">
+                                <i class="mdi mdi-settings"></i>
+                            </a>
+                        </li>
+
+                        <li class="dropdown user-box">
+                            <a href="" class="dropdown-toggle waves-effect user-link" data-toggle="dropdown" aria-expanded="true">
+                                <img src="/static/assets/images/users/avatar-1.jpg" alt="user-img" class="img-circle user-img">
+                            </a>
+
+                            <ul class="dropdown-menu dropdown-menu-right arrow-dropdown-menu arrow-menu-right user-list notify-list">
+                                <li>
+                                    <h5>Hi, {{.User.UsuariosModelDocumento.Documento.Nome}}</h5>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0)">
+                                        <i class="ti-user m-r-5"></i> Profile
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0)">
+                                        <i class="ti-settings m-r-5"></i> Settings
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0)">
+                                        <i class="ti-lock m-r-5"></i> Lock screen
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0)">
+                                        <i class="ti-power-off m-r-5"></i> Logout
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <!-- end navbar-right -->
+                </div>
+                <!-- end container -->
+            </div>
+            <!-- end navbar -->
+        </div>
+        <!-- Top Bar End -->
+        <!-- ========== Left Sidebar Start ========== -->
+        <div class="left side-menu" style="padding-top:50px;">
+            <div class="sidebar-inner slimscrollleft">
+
+                <!--- Sidemenu -->
+                <div id="sidebar-menu">
+                    <ul>
+                        <li class="menu-title">Navegação</li>
+
+                        <li class="has_sub">
+                            <a href="/Home/Dashboard" class="waves-effect"><i class="mdi mdi-view-dashboard"></i> <span> Dashboard </span> </a>
+                        </li>
+
+                        <li class="has_sub">
+                            <a href="/#" class="waves-effect"><i class="mdi mdi-clipboard-text"></i> <span> Relatorios </span></a>
+                        </li>
+
+                        <li class="has_sub">
+                            <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-file-chart"></i><span> Cadastro </span> <span class="menu-arrow"></span></a>
+                            <ul class="list-unstyled">
+                                <li><a href="/#">Gasto</a></li>
+                                <li><a href="/#">Tipo</a></li>
+                            </ul>
+                        </li>
+
+                    </ul>
+                </div>
+                <!-- Sidebar -->
+
+
+            </div>
+            <!-- Sidebar -left -->
+
+        </div>
+        <!-- Left Sidebar End -->
+        <!-- ============================================================== -->
+        <!-- Start right Content here -->
+        <!-- ============================================================== -->
+        <div class="content-page" style="padding-top:50px;">
+            <!-- Start content -->
+            <div class="content">
+                <div class="container ">
+                    <div class="row m-t-50 panel">
+                        <div class="col12">
+                            <h1>eu sou o teste</h1>
+                        </div>
+                        <div class="col-lg-6">
+                            <h2>caixa</h2>
+                            <canvas id="myChart" width="400" height="400"></canvas>
+
+                        </div>
+
+                    </div> <!-- end row -->
+                </div> <!-- end container -->
+
+            </div> <!-- content -->
+
+
+
+        </div>
+        <!--Right Sidebar End -->
+
+    </div>
+    <!-- END wrapper -->
+
+    <script>
+        var resizefunc = [];
+    </script>
+
+    <!-- jQuery  -->
+    <script src="~/js/jquery.min.js"></script>
+    <script src="~/js/bootstrap.min.js"></script>
+    <script src="~/js/detect.js"></script>
+    <script src="~/js/fastclick.js"></script>
+    <script src="~/js/jquery.blockUI.js"></script>
+    <script src="~/js/waves.js"></script>
+    <script src="~/js/jquery.slimscroll.js"></script>
+    <script src="~/js/jquery.scrollTo.min.js"></script>
+    <script src="~/plugins/switchery/switchery.min.js"></script>
+
+    <script type="text/javascript" src="~/plugins/parsleyjs/parsley.min.js"></script>
+
+    <!-- App js -->
+    <script src="~/js/jquery.core.js"></script>
+    <script src="~/js/jquery.app.js"></script>
+
+    <script>
+        $('#btn-add-user').click(event => {
+            event.preventDefault();
+            console.log('clicou');
+        });
+    </script>
+
+
+    <script>
+        var ctx = document.getElementById("myChart").getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+                datasets: [{
+                    label: '# of Votes',
+                    data: [12, 19, 3, 5, 2, 3],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255,99,132,1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+    </script>
+
+</body>

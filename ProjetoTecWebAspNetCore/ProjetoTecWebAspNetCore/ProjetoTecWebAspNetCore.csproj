@@ -11,6 +11,13 @@
 
   <ItemGroup>
     <Folder Include="Repository\" />
+    <Folder Include="wwwroot\plugins\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="Views\Home\Dashboard.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
   </ItemGroup>
 
   <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JSONSchema="http://json.schemastore.org/bowerrc" /></VisualStudio></ProjectExtensions>
