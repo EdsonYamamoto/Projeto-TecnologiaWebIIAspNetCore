@@ -1,6 +1,6 @@
 using System;
 
-namespace TecnologiaWebIIAspNetCore.Models
+namespace ProjetoTecWebAspNetCore.Models
 {
     public class ErrorViewModel
     {

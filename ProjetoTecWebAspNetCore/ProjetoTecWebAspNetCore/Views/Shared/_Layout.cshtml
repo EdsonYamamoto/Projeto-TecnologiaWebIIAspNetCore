@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - TecnologiaWebIIAspNetCore</title>
+    <title> Projeto - Tecnologia web</title>
 
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
@@ -15,6 +15,13 @@
               asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
         <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
     </environment>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="~/js/parallax.min.js"></script>
+    <script src="~/css/parallax.css"></script>
 </head>
 <body>
     <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -26,13 +33,16 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">TecnologiaWebIIAspNetCore</a>
+                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">ProjetoTecWebAspNetCore</a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="DinamicInputTest">Dinamic input test</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="ChartJSTest">Chart JS</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="ParallaxTest">ParallaxTest</a></li>
                 </ul>
             </div>
         </div>
@@ -44,7 +54,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; 2018 - TecnologiaWebIIAspNetCore</p>
+            <p>&copy; 2018 - ProjetoTecWeb</p>
         </footer>
     </div>
 

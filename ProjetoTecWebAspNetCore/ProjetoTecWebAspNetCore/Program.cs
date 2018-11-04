@@ -6,14 +6,22 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
-namespace TecnologiaWebIIAspNetCore
+namespace ProjetoTecWebAspNetCore
 {
     public class Program
     {
         public static void Main(string[] args)
         {
+            var host = CreateWebHostBuilder(args).Build();
+            using (var scope = host.Services.CreateScope())
+            {
+                var services = scope.ServiceProvider;
+                var context = services.GetRequiredService<Models.AppContextModel>();
+                context.Database.CreateExecutionStrategy();
+            }
             CreateWebHostBuilder(args).Build().Run();
         }
 

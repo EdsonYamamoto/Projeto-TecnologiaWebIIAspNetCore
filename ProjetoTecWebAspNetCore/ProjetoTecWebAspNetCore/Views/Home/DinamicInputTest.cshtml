@@ -1,0 +1,15 @@
+﻿
+@{
+    ViewData["Title"] = "DinamicInputTest";
+}
+
+<h2>DinamicInputTest</h2>
+
+<p>String: @ViewBag.Var1</p>
+<p>Int: @ViewBag.Var2</p>
+<p>Boolean: @ViewBag.Var3</p>
+<p>Float: @ViewBag.Var4</p>
+
+
+@foreach (var x in @ViewBag.Pessoas)
+{<li>@x</li>}
