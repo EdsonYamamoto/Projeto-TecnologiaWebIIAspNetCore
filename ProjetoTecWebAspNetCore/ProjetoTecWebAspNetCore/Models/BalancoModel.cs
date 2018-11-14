@@ -5,12 +5,13 @@ using System.Threading.Tasks;
 
 namespace ProjetoTecWebAspNetCore.Models
 {
-    public class GastosModel
+    public class BalancoModel
     {
         public int ID { get; set; }
         public int ContaID { get; set; }
         public ContaModel Conta { get; set; }
-        public double Custo { get; set; }
-        public string Categoria { get; set; }
+        public double Valor { get; set; }
+        public string TipoGasto { get; set; }
+        public DateTime Data { get; set; }
     }
 }
