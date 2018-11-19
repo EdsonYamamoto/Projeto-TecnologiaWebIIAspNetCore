@@ -5,12 +5,12 @@ using System.Threading.Tasks;
 
 namespace ProjetoTecWebAspNetCore.Models
 {
-    public class ContaModel
+    public class ConversaModel
     {
         public int ID { get; set; }
-        public int UsuarioID { get; set; }
+        public int IdUsuario { get; set; }
         public UsuarioModel Usuario { get; set; }
-        public int NumeroConta { get; set; }
-        public List<BalancoModel> Balanco { get; set; }
+        public string Mensagem { get; set; }
+        public DateTime Horiario { get; set; }
     }
 }
