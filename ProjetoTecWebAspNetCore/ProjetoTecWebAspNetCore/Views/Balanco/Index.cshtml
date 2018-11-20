@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ProjetoTecWebAspNetCore.Models.GastosModel>
+﻿@model IEnumerable<ProjetoTecWebAspNetCore.Models.BalancoModel>
 
 @{
     ViewData["Title"] = "Index";
@@ -16,10 +16,13 @@
                 @Html.DisplayNameFor(model => model.Conta)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Custo)
+                @Html.DisplayNameFor(model => model.Valor)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Categoria)
+                @Html.DisplayNameFor(model => model.TipoGasto)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Data)
             </th>
             <th></th>
         </tr>
@@ -31,10 +34,13 @@
                 @Html.DisplayFor(modelItem => item.Conta.ID)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Custo)
+                @Html.DisplayFor(modelItem => item.Valor)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Categoria)
+                @Html.DisplayFor(modelItem => item.TipoGasto)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Data)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |

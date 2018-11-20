@@ -9,22 +9,23 @@ using ProjetoTecWebAspNetCore.Models;
 
 namespace ProjetoTecWebAspNetCore.Controllers
 {
-    public class UsuarioController : Controller
+    public class ContaController : Controller
     {
         private readonly AppContextModel _context;
 
-        public UsuarioController(AppContextModel context)
+        public ContaController(AppContextModel context)
         {
             _context = context;
         }
 
-        // GET: Usuario
+        // GET: Conta
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Usuarios.ToListAsync());
+            var appContextModel = _context.Contas.Include(c => c.Usuario);
+            return View(await appContextModel.ToListAsync());
         }
 
-        // GET: Usuario/Details/5
+        // GET: Conta/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -32,39 +33,42 @@ namespace ProjetoTecWebAspNetCore.Controllers
                 return NotFound();
             }
 
-            var usuarioModel = await _context.Usuarios
+            var contaModel = await _context.Contas
+                .Include(c => c.Usuario)
                 .FirstOrDefaultAsync(m => m.ID == id);
-            if (usuarioModel == null)
+            if (contaModel == null)
             {
                 return NotFound();
             }
 
-            return View(usuarioModel);
+            return View(contaModel);
         }
 
-        // GET: Usuario/Create
+        // GET: Conta/Create
         public IActionResult Create()
         {
+            ViewData["UsuarioID"] = new SelectList(_context.Usuarios, "ID", "ID");
             return View();
         }
 
-        // POST: Usuario/Create
+        // POST: Conta/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,Senha,Nome,Email,DataNascimento,CPF,TipoUsuario,Obs")] UsuarioModel usuarioModel)
+        public async Task<IActionResult> Create([Bind("ID,UsuarioID,NumeroConta")] ContaModel contaModel)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(usuarioModel);
+                _context.Add(contaModel);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(usuarioModel);
+            ViewData["UsuarioID"] = new SelectList(_context.Usuarios, "ID", "ID", contaModel.UsuarioID);
+            return View(contaModel);
         }
 
-        // GET: Usuario/Edit/5
+        // GET: Conta/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -72,22 +76,23 @@ namespace ProjetoTecWebAspNetCore.Controllers
                 return NotFound();
             }
 
-            var usuarioModel = await _context.Usuarios.FindAsync(id);
-            if (usuarioModel == null)
+            var contaModel = await _context.Contas.FindAsync(id);
+            if (contaModel == null)
             {
                 return NotFound();
             }
-            return View(usuarioModel);
+            ViewData["UsuarioID"] = new SelectList(_context.Usuarios, "ID", "ID", contaModel.UsuarioID);
+            return View(contaModel);
         }
 
-        // POST: Usuario/Edit/5
+        // POST: Conta/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,Senha,Nome,Email,DataNascimento,CPF,TipoUsuario,Obs")] UsuarioModel usuarioModel)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,UsuarioID,NumeroConta")] ContaModel contaModel)
         {
-            if (id != usuarioModel.ID)
+            if (id != contaModel.ID)
             {
                 return NotFound();
             }
@@ -96,12 +101,12 @@ namespace ProjetoTecWebAspNetCore.Controllers
             {
                 try
                 {
-                    _context.Update(usuarioModel);
+                    _context.Update(contaModel);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!UsuarioModelExists(usuarioModel.ID))
+                    if (!ContaModelExists(contaModel.ID))
                     {
                         return NotFound();
                     }
@@ -112,10 +117,11 @@ namespace ProjetoTecWebAspNetCore.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(usuarioModel);
+            ViewData["UsuarioID"] = new SelectList(_context.Usuarios, "ID", "ID", contaModel.UsuarioID);
+            return View(contaModel);
         }
 
-        // GET: Usuario/Delete/5
+        // GET: Conta/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -123,30 +129,31 @@ namespace ProjetoTecWebAspNetCore.Controllers
                 return NotFound();
             }
 
-            var usuarioModel = await _context.Usuarios
+            var contaModel = await _context.Contas
+                .Include(c => c.Usuario)
                 .FirstOrDefaultAsync(m => m.ID == id);
-            if (usuarioModel == null)
+            if (contaModel == null)
             {
                 return NotFound();
             }
 
-            return View(usuarioModel);
+            return View(contaModel);
         }
 
-        // POST: Usuario/Delete/5
+        // POST: Conta/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var usuarioModel = await _context.Usuarios.FindAsync(id);
-            _context.Usuarios.Remove(usuarioModel);
+            var contaModel = await _context.Contas.FindAsync(id);
+            _context.Contas.Remove(contaModel);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool UsuarioModelExists(int id)
+        private bool ContaModelExists(int id)
         {
-            return _context.Usuarios.Any(e => e.ID == id);
+            return _context.Contas.Any(e => e.ID == id);
         }
     }
 }

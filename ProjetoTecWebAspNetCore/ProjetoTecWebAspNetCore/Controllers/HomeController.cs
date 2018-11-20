@@ -12,10 +12,6 @@ namespace ProjetoTecWebAspNetCore.Controllers
     {
         public IActionResult Index()
         {
-            PageModel page = new PageModel();
-            page.Title = "titulo";
-            page.AuxTitle = " auxiliar";
-            ViewBag.Page = page;
             return View();
         }
 

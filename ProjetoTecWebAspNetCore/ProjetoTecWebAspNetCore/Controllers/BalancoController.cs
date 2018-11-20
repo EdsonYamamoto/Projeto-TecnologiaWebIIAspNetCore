@@ -9,23 +9,23 @@ using ProjetoTecWebAspNetCore.Models;
 
 namespace ProjetoTecWebAspNetCore.Controllers
 {
-    public class GastoController : Controller
+    public class BalancoController : Controller
     {
         private readonly AppContextModel _context;
 
-        public GastoController(AppContextModel context)
+        public BalancoController(AppContextModel context)
         {
             _context = context;
         }
 
-        // GET: Gasto
+        // GET: Balanco
         public async Task<IActionResult> Index()
         {
-            var appContextModel = _context.Gastos.Include(g => g.Conta);
+            var appContextModel = _context.Balancos.Include(b => b.Conta);
             return View(await appContextModel.ToListAsync());
         }
 
-        // GET: Gasto/Details/5
+        // GET: Balanco/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -33,42 +33,42 @@ namespace ProjetoTecWebAspNetCore.Controllers
                 return NotFound();
             }
 
-            var gastosModel = await _context.Gastos
-                .Include(g => g.Conta)
+            var balancoModel = await _context.Balancos
+                .Include(b => b.Conta)
                 .FirstOrDefaultAsync(m => m.ID == id);
-            if (gastosModel == null)
+            if (balancoModel == null)
             {
                 return NotFound();
             }
 
-            return View(gastosModel);
+            return View(balancoModel);
         }
 
-        // GET: Gasto/Create
+        // GET: Balanco/Create
         public IActionResult Create()
         {
             ViewData["ContaID"] = new SelectList(_context.Contas, "ID", "ID");
             return View();
         }
 
-        // POST: Gasto/Create
+        // POST: Balanco/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,ContaID,Custo,Categoria")] GastosModel gastosModel)
+        public async Task<IActionResult> Create([Bind("ID,ContaID,Valor,TipoGasto,Data")] BalancoModel balancoModel)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(gastosModel);
+                _context.Add(balancoModel);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ContaID"] = new SelectList(_context.Contas, "ID", "ID", gastosModel.ContaID);
-            return View(gastosModel);
+            ViewData["ContaID"] = new SelectList(_context.Contas, "ID", "ID", balancoModel.ContaID);
+            return View(balancoModel);
         }
 
-        // GET: Gasto/Edit/5
+        // GET: Balanco/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -76,23 +76,23 @@ namespace ProjetoTecWebAspNetCore.Controllers
                 return NotFound();
             }
 
-            var gastosModel = await _context.Gastos.FindAsync(id);
-            if (gastosModel == null)
+            var balancoModel = await _context.Balancos.FindAsync(id);
+            if (balancoModel == null)
             {
                 return NotFound();
             }
-            ViewData["ContaID"] = new SelectList(_context.Contas, "ID", "ID", gastosModel.ContaID);
-            return View(gastosModel);
+            ViewData["ContaID"] = new SelectList(_context.Contas, "ID", "ID", balancoModel.ContaID);
+            return View(balancoModel);
         }
 
-        // POST: Gasto/Edit/5
+        // POST: Balanco/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,ContaID,Custo,Categoria")] GastosModel gastosModel)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,ContaID,Valor,TipoGasto,Data")] BalancoModel balancoModel)
         {
-            if (id != gastosModel.ID)
+            if (id != balancoModel.ID)
             {
                 return NotFound();
             }
@@ -101,12 +101,12 @@ namespace ProjetoTecWebAspNetCore.Controllers
             {
                 try
                 {
-                    _context.Update(gastosModel);
+                    _context.Update(balancoModel);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!GastosModelExists(gastosModel.ID))
+                    if (!BalancoModelExists(balancoModel.ID))
                     {
                         return NotFound();
                     }
@@ -117,11 +117,11 @@ namespace ProjetoTecWebAspNetCore.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ContaID"] = new SelectList(_context.Contas, "ID", "ID", gastosModel.ContaID);
-            return View(gastosModel);
+            ViewData["ContaID"] = new SelectList(_context.Contas, "ID", "ID", balancoModel.ContaID);
+            return View(balancoModel);
         }
 
-        // GET: Gasto/Delete/5
+        // GET: Balanco/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -129,31 +129,31 @@ namespace ProjetoTecWebAspNetCore.Controllers
                 return NotFound();
             }
 
-            var gastosModel = await _context.Gastos
-                .Include(g => g.Conta)
+            var balancoModel = await _context.Balancos
+                .Include(b => b.Conta)
                 .FirstOrDefaultAsync(m => m.ID == id);
-            if (gastosModel == null)
+            if (balancoModel == null)
             {
                 return NotFound();
             }
 
-            return View(gastosModel);
+            return View(balancoModel);
         }
 
-        // POST: Gasto/Delete/5
+        // POST: Balanco/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var gastosModel = await _context.Gastos.FindAsync(id);
-            _context.Gastos.Remove(gastosModel);
+            var balancoModel = await _context.Balancos.FindAsync(id);
+            _context.Balancos.Remove(balancoModel);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool GastosModelExists(int id)
+        private bool BalancoModelExists(int id)
         {
-            return _context.Gastos.Any(e => e.ID == id);
+            return _context.Balancos.Any(e => e.ID == id);
         }
     }
 }

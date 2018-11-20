@@ -9,22 +9,22 @@ using ProjetoTecWebAspNetCore.Models;
 
 namespace ProjetoTecWebAspNetCore.Controllers
 {
-    public class UsuarioController : Controller
+    public class EmprestimoController : Controller
     {
         private readonly AppContextModel _context;
 
-        public UsuarioController(AppContextModel context)
+        public EmprestimoController(AppContextModel context)
         {
             _context = context;
         }
 
-        // GET: Usuario
+        // GET: Emprestimo
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Usuarios.ToListAsync());
+            return View(await _context.Emprestimos.ToListAsync());
         }
 
-        // GET: Usuario/Details/5
+        // GET: Emprestimo/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -32,39 +32,39 @@ namespace ProjetoTecWebAspNetCore.Controllers
                 return NotFound();
             }
 
-            var usuarioModel = await _context.Usuarios
+            var emprestimoModel = await _context.Emprestimos
                 .FirstOrDefaultAsync(m => m.ID == id);
-            if (usuarioModel == null)
+            if (emprestimoModel == null)
             {
                 return NotFound();
             }
 
-            return View(usuarioModel);
+            return View(emprestimoModel);
         }
 
-        // GET: Usuario/Create
+        // GET: Emprestimo/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Usuario/Create
+        // POST: Emprestimo/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,Senha,Nome,Email,DataNascimento,CPF,TipoUsuario,Obs")] UsuarioModel usuarioModel)
+        public async Task<IActionResult> Create([Bind("ID,IDInvestidor,IDTomador,Valor,Parcela,QuantidadeParcela,Horario,Autorizacao")] EmprestimoModel emprestimoModel)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(usuarioModel);
+                _context.Add(emprestimoModel);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(usuarioModel);
+            return View(emprestimoModel);
         }
 
-        // GET: Usuario/Edit/5
+        // GET: Emprestimo/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -72,22 +72,22 @@ namespace ProjetoTecWebAspNetCore.Controllers
                 return NotFound();
             }
 
-            var usuarioModel = await _context.Usuarios.FindAsync(id);
-            if (usuarioModel == null)
+            var emprestimoModel = await _context.Emprestimos.FindAsync(id);
+            if (emprestimoModel == null)
             {
                 return NotFound();
             }
-            return View(usuarioModel);
+            return View(emprestimoModel);
         }
 
-        // POST: Usuario/Edit/5
+        // POST: Emprestimo/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,Senha,Nome,Email,DataNascimento,CPF,TipoUsuario,Obs")] UsuarioModel usuarioModel)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,IDInvestidor,IDTomador,Valor,Parcela,QuantidadeParcela,Horario,Autorizacao")] EmprestimoModel emprestimoModel)
         {
-            if (id != usuarioModel.ID)
+            if (id != emprestimoModel.ID)
             {
                 return NotFound();
             }
@@ -96,12 +96,12 @@ namespace ProjetoTecWebAspNetCore.Controllers
             {
                 try
                 {
-                    _context.Update(usuarioModel);
+                    _context.Update(emprestimoModel);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!UsuarioModelExists(usuarioModel.ID))
+                    if (!EmprestimoModelExists(emprestimoModel.ID))
                     {
                         return NotFound();
                     }
@@ -112,10 +112,10 @@ namespace ProjetoTecWebAspNetCore.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(usuarioModel);
+            return View(emprestimoModel);
         }
 
-        // GET: Usuario/Delete/5
+        // GET: Emprestimo/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -123,30 +123,30 @@ namespace ProjetoTecWebAspNetCore.Controllers
                 return NotFound();
             }
 
-            var usuarioModel = await _context.Usuarios
+            var emprestimoModel = await _context.Emprestimos
                 .FirstOrDefaultAsync(m => m.ID == id);
-            if (usuarioModel == null)
+            if (emprestimoModel == null)
             {
                 return NotFound();
             }
 
-            return View(usuarioModel);
+            return View(emprestimoModel);
         }
 
-        // POST: Usuario/Delete/5
+        // POST: Emprestimo/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var usuarioModel = await _context.Usuarios.FindAsync(id);
-            _context.Usuarios.Remove(usuarioModel);
+            var emprestimoModel = await _context.Emprestimos.FindAsync(id);
+            _context.Emprestimos.Remove(emprestimoModel);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool UsuarioModelExists(int id)
+        private bool EmprestimoModelExists(int id)
         {
-            return _context.Usuarios.Any(e => e.ID == id);
+            return _context.Emprestimos.Any(e => e.ID == id);
         }
     }
 }

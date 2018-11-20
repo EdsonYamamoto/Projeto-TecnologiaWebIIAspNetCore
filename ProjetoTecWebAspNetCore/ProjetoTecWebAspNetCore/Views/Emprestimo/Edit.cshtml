@@ -1,0 +1,63 @@
+﻿@model ProjetoTecWebAspNetCore.Models.EmprestimoModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h2>Edit</h2>
+
+<h4>EmprestimoModel</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="ID" />
+            <div class="form-group">
+                <label asp-for="IDInvestidor" class="control-label"></label>
+                <input asp-for="IDInvestidor" class="form-control" />
+                <span asp-validation-for="IDInvestidor" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IDTomador" class="control-label"></label>
+                <input asp-for="IDTomador" class="form-control" />
+                <span asp-validation-for="IDTomador" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Valor" class="control-label"></label>
+                <input asp-for="Valor" class="form-control" />
+                <span asp-validation-for="Valor" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Parcela" class="control-label"></label>
+                <input asp-for="Parcela" class="form-control" />
+                <span asp-validation-for="Parcela" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="QuantidadeParcela" class="control-label"></label>
+                <input asp-for="QuantidadeParcela" class="form-control" />
+                <span asp-validation-for="QuantidadeParcela" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Horario" class="control-label"></label>
+                <input asp-for="Horario" class="form-control" />
+                <span asp-validation-for="Horario" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <div class="checkbox">
+                    <label>
+                        <input asp-for="Autorizacao" /> @Html.DisplayNameFor(model => model.Autorizacao)
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

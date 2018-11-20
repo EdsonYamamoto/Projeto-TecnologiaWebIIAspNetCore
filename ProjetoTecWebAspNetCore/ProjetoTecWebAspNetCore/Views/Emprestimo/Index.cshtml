@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ProjetoTecWebAspNetCore.Models.UsuarioModel>
+﻿@model IEnumerable<ProjetoTecWebAspNetCore.Models.EmprestimoModel>
 
 @{
     ViewData["Title"] = "Index";
@@ -13,25 +13,25 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Senha)
+                @Html.DisplayNameFor(model => model.IDInvestidor)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Nome)
+                @Html.DisplayNameFor(model => model.IDTomador)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Email)
+                @Html.DisplayNameFor(model => model.Valor)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.DataNascimento)
+                @Html.DisplayNameFor(model => model.Parcela)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CPF)
+                @Html.DisplayNameFor(model => model.QuantidadeParcela)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.TipoUsuario)
+                @Html.DisplayNameFor(model => model.Horario)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Obs)
+                @Html.DisplayNameFor(model => model.Autorizacao)
             </th>
             <th></th>
         </tr>
@@ -40,25 +40,25 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Senha)
+                @Html.DisplayFor(modelItem => item.IDInvestidor)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Nome)
+                @Html.DisplayFor(modelItem => item.IDTomador)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Email)
+                @Html.DisplayFor(modelItem => item.Valor)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.DataNascimento)
+                @Html.DisplayFor(modelItem => item.Parcela)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.CPF)
+                @Html.DisplayFor(modelItem => item.QuantidadeParcela)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.TipoUsuario)
+                @Html.DisplayFor(modelItem => item.Horario)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Obs)
+                @Html.DisplayFor(modelItem => item.Autorizacao)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |

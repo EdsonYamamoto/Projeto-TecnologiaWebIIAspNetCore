@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace ProjetoTecWebAspNetCore.Models
 {
-    public class Emprestimo
+    public class EmprestimoModel
     {
         public int ID { get; set; }
         public int IDInvestidor { get; set; }
