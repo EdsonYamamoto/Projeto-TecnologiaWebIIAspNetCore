@@ -59,7 +59,7 @@ namespace ProjetoTecWebAspNetCore.Controllers
             {
                 _context.Add(usuarioModel);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index", "Conta");
             }
             return View(usuarioModel);
         }
@@ -125,6 +125,7 @@ namespace ProjetoTecWebAspNetCore.Controllers
 
             var usuarioModel = await _context.Usuarios
                 .FirstOrDefaultAsync(m => m.ID == id);
+
             if (usuarioModel == null)
             {
                 return NotFound();
