@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ProjetoTecWebAspNetCore.Models;
 using ProjetoTecWebAspNetCore.Controllers;
+using ProjetoTecWebAspNetCore.Repository;
 
 namespace ProjetoTecWebAspNetCore.Controllers
 {
@@ -35,21 +36,19 @@ namespace ProjetoTecWebAspNetCore.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> UserConfirmed(string email, string senha)
         {
-            if (UsuarioModelExists(email, senha))
-            {
+            UsuarioRepository a = new UsuarioRepository(_context);
+            UsuarioModel user =  a.AutenticationUser(email, senha);
+            if (user!=null){
+                System.Diagnostics.Debug.WriteLine(user.ToString());
+
+                List<ContaModel> contasUsuario = a.ContasUsuario(user.ID);
+                foreach(ContaModel conta in contasUsuario)
+                    System.Diagnostics.Debug.WriteLine(conta.ToString());
+
                 return RedirectToAction(nameof(Dashboard));
-            }
-            else
-            {
+            } else {
                 return RedirectToAction(nameof(IndexLogin));
             }
         }
-
-        private bool UsuarioModelExists(string email, string senha)
-        {
-            return _context.Usuarios.Any(e => e.Email == email && e.Senha == senha);
-        }
-
-
     }
 }

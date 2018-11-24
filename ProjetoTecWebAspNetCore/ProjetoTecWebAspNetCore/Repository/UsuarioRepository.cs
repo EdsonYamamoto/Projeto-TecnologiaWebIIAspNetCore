@@ -10,9 +10,14 @@ namespace ProjetoTecWebAspNetCore.Repository
     {
         private readonly AppContextModel _appContextModel;
 
+        public UsuarioRepository(AppContextModel appContextModel)
+        {
+            _appContextModel = appContextModel;
+        }
+
         public IEnumerable<UsuarioModel> GetAllUsuarios()
         {
-            return _appContextModel.Usuarios;
+            return _appContextModel.Usuarios.ToList();
         }
 
         public UsuarioModel GetUsuarioById(int usuarioId)
@@ -20,9 +25,16 @@ namespace ProjetoTecWebAspNetCore.Repository
             return _appContextModel.Usuarios.FirstOrDefault(p => p.ID == usuarioId);
         }
 
-        public UsuarioModel GetAutentication(int usuarioId, string senha)
+        public UsuarioModel AutenticationUser(string email, string senha)
         {
-            return _appContextModel.Usuarios.FirstOrDefault(p => p.ID == usuarioId && p.Senha == senha);
+            return _appContextModel.Usuarios.FirstOrDefault(p => p.Email == email && p.Senha == senha);
+        }
+        public List<ContaModel> ContasUsuario(int usuarioID)
+        {
+            var teste = _appContextModel.Contas.Select(p => p.UsuarioID == usuarioID);
+            System.Diagnostics.Debug.Print(teste.ToString());
+            
+            return _appContextModel.Contas.ToList();
         }
     }
 }

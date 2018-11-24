@@ -17,5 +17,10 @@ namespace ProjetoTecWebAspNetCore.Models
         public int QuantidadeParcela { get; set; }
         public DateTime Horario { get; set; }
         public Boolean Autorizacao { get; set; }
+
+        public override string ToString()
+        {
+            return base.ToString();
+        }
     }
 }

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ProjetoTecWebAspNetCore.Models;
+using ProjetoTecWebAspNetCore.Repository;
 
 namespace ProjetoTecWebAspNetCore.Controllers
 {

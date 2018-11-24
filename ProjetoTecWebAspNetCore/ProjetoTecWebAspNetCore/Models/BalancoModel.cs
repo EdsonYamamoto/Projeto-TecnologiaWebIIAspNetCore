@@ -13,5 +13,10 @@ namespace ProjetoTecWebAspNetCore.Models
         public double Valor { get; set; }
         public string TipoGasto { get; set; }
         public DateTime Data { get; set; }
+
+        public override string ToString()
+        {
+            return base.ToString();
+        }
     }
 }

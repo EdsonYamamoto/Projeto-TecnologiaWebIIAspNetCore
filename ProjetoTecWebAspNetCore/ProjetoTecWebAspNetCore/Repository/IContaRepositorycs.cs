@@ -10,5 +10,6 @@ namespace ProjetoTecWebAspNetCore.Repository
     {
         IEnumerable<ContaModel> GetAllContas();
         ContaModel GetContaById(int contaId);
+        List<ContaModel> GetContaByUserID(int usuarioID);
     }
 }

@@ -10,7 +10,8 @@ namespace ProjetoTecWebAspNetCore.Repository
     {
         IEnumerable<UsuarioModel> GetAllUsuarios();
         UsuarioModel GetUsuarioById(int usuarioId);
-        UsuarioModel GetAutentication(int usuarioId, string senha);
+        UsuarioModel AutenticationUser(string email, string senha);
+        List<ContaModel> ContasUsuario(int usuarioID);
 
     }
 }

@@ -9,7 +9,7 @@ namespace ProjetoTecWebAspNetCore.Repository
     public class BalancoRepository : IBalancoRepository
     {
         private readonly AppContextModel _appContextModel;
-
+        
         public BalancoRepository(AppContextModel appContextModel)
         {
             _appContextModel = appContextModel;

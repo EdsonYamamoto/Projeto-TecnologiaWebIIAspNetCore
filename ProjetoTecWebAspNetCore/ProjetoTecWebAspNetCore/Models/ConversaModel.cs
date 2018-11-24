@@ -12,5 +12,10 @@ namespace ProjetoTecWebAspNetCore.Models
         public UsuarioModel Usuario { get; set; }
         public string Mensagem { get; set; }
         public DateTime Horiario { get; set; }
+
+        public override string ToString()
+        {
+            return base.ToString();
+        }
     }
 }

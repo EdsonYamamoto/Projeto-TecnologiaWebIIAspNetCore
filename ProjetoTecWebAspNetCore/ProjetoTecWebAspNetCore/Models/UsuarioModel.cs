@@ -16,10 +16,9 @@ namespace ProjetoTecWebAspNetCore.Models
         public string TipoUsuario { get; set; }
         public string Obs { get; set; }
 
-
         public override string ToString()
         {
-            return "nome: "+this.Nome+" obs:"+this.Obs;
+            return Nome+' '+Senha + ' ' + Email + ' ' + CPF + ' ' + TipoUsuario + ' ' + Obs;
         }
     }
 }
