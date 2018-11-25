@@ -19,22 +19,25 @@
             <div class="content">
                 <div class="container ">
 
-                    <h1>Bem vindo @ViewBag.Usuario.Nome</h1>
-                    <h2>Área de acesso</h2>
-                    <h4>Entre na sua conta!</h4>
                     <hr />
                     <div class="row">
                         <div class="col-md-4">
-                            <form asp-action="NovoBalanco">
+                            <form asp-action="CadastrarBalanco">
                                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                                 <div class="form-group">
+                                    
+                                    <label lass="control-label"></label>
+                                    <input class="form-control" />
                                     <!--
                                     <label asp-for="Valor" class="control-label"></label>
-                                    <input asp-for="Valor" class="form-control" />
-                                    <span asp-validation-for="Valor" class="text-danger"></span>
+                                    <input asp-for="Vaçpr" class="form-control" />
+                                    <span asp-validation-for="" class="text-danger"></span>
                                     -->
                                 </div>
                                 <div class="form-group">
+                                    
+                                    <label lass="control-label"></label>
+                                    <input class="form-control" />
                                     <!--
                                     <label asp-for="TipoGasto" class="control-label"></label>
                                     <input asp-for="TipoGasto" class="form-control" />
@@ -42,7 +45,7 @@
                                     -->
                                 </div>
                                 <div class="form-group">
-                                    <input type="submit" value="Logar  " class="btn btn-default" />
+                                    <input type="submit" value="CadastrarBalanco" class="btn btn-default" />
                                 </div>
                             </form>
                         </div>

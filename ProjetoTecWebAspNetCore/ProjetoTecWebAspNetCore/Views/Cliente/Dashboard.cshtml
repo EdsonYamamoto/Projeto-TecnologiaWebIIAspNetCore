@@ -18,155 +18,66 @@
             <!-- Start content -->
             <div class="content">
                 <div class="container ">
-
-                    <h1>Bem vindo @ViewBag.Usuario.Nome</h1>
                     <script>
                         @ViewBag.ArrayContas
                     </script>
                     <div class="row m-t-50 panel">
                         <div class="col-sm-12 col-md-4 col-lg-3">
-                            <div class="card jumbotron">
-                                <div class="card-body">Basic card</div>
+                            <div class="jumbotron" style="padding: 20px">
+                                <h3><i class="ti-shopping-cart"></i> Basic card</h3>
                             </div>
-                            <div class="bg-primary jumbotron">
-                                <div class="card-body">Primary card</div>
+                            <div class="bg-primary jumbotron" style="padding: 20px">
+                                <div class="card-body"><h3><i class="ti-heart"></i> Primary card</h3></div>
                             </div>
-                            <div class="card bg-success jumbotron">
-                                <div class="card-body">Success card</div>
+                            <div class="bg-success jumbotron" style="padding: 20px">
+                               <h3><i class="ti-car"></i> Success card</h3>
                             </div>
-                            <div class="card bg-info jumbotron">
-                                <div class="card-body">Info card</div>
+                            <div class=" bg-info jumbotron" style="padding: 20px">
+                                <h3><i class="ti-ticket"></i> Info card</h3>
                             </div>
-                            <div class="card bg-warning jumbotron">
-                                <div class="card-body">Warning card</div>
+                            <div class=" bg-warning jumbotron" style="padding: 20px">
+                                <h3><i class="ti-gift"></i> Warning card</h3>
                             </div>
-                            <div class="card bg-danger jumbotron">
-                                <div class="card-body">Danger card</div>
+                            <div class=" bg-danger jumbotron" style="padding: 20px">
+                                <h3><i class="ti-credit-card"></i> Danger card</h3>
                             </div>
-                            <div class="card bg-secondary jumbotron">
-                                <div class="card-body">Secondary card</div>
+                            <div class=" bg-secondary jumbotron" style="padding: 20px">
+                                <div class="">Secondary card</div>
                             </div>
-                            <div class="card bg-dark jumbotron">
-                                <div class="card-body">Dark card</div>
+                            <div class=" bg-dark jumbotron" style="padding: 20px">
+                                <div class="">Dark card</div>
                             </div>
-                            <div class="card bg-light jumbotron">
-                                <div class="card-body">Light card</div>
+                            <div class=" bg-light jumbotron" style="padding: 20px">
+                                <div class="">Light card</div>
                             </div>
                         </div>
                         @foreach (ContaModel conta in ViewBag.Contas)
                         {
-                            <div class="col-sm-12 col-md-4 col-lg-3">
-                                <h5 class="card-title">Conta @conta.NumeroConta</h5>
-                                <h6 class="card-subtitle mb-2 text-muted">Dados da conta</h6>
-                                <a href="#" class="card-link">Card link</a>
-                                <a href="#" class="card-link">Another link</a>
-                                <canvas id="chart1_@conta.NumeroConta" width="400" height="400"></canvas>
-                            </div>
-                            <div class="col-sm-12 col-md-4 col-lg-3">
-                                <h5 class="card-title">Conta @conta.NumeroConta</h5>
-                                <h6 class="card-subtitle mb-2 text-muted">Dados da conta</h6>
-                                <a href="#" class="card-link">Card link</a>
-                                <a href="#" class="card-link">Another link</a>
+                            <div class="col-sm-12 col-md-4 col-lg-4">
+                                <h3 class="card-title">Conta usuario: @conta.Usuario.Nome</h3>
+                                <h4 class="card-subtitle mb-2 text-muted">Dados da conta: @conta.NumeroConta</h4>
                                 <canvas id="chart2_@conta.NumeroConta" width="400" height="400"></canvas>
-                            </div>
-                            <div class="col-sm-12 col-md-4 col-lg-3">
-                                <h5 class="card-title">Conta @conta.NumeroConta</h5>
-                                <h6 class="card-subtitle mb-2 text-muted">Dados da conta</h6>
-                                <a href="#" class="card-link">Card link</a>
-                                <a href="#" class="card-link">Another link</a>
-                                <canvas id="chart3_@conta.NumeroConta" width="400" height="400"></canvas>
                             </div>
 
                             <script>
-
-                                var ctx = document.getElementById("chart1_@conta.NumeroConta").getContext('2d');
-                                var myChart = new Chart(ctx, {
-                                    type: 'bar',
-                                    data: {
-                                        labels: arrayValorConta_@conta.NumeroConta,
-                                        datasets: [{
-                                            label: 'Balanco',
-                                            data: arrayValorConta_@conta.NumeroConta,
-                                            backgroundColor: [
-                                                'rgba(54, 162, 235, 0.2)'
-                                            ],
-                                            borderColor: [
-                                                'rgba(54, 162, 235, 1)'
-                                            ],
-                                            borderWidth: 1
-                                        }]
-                                    },
-                                    options: {
-                                        scales: {
-                                            yAxes: [{
-                                                ticks: {
-                                                    beginAtZero: true
-                                                }
-                                            }]
-                                        }
-                                    }
-                                });
-
+                                
                                 var ctx2 = document.getElementById("chart2_@conta.NumeroConta").getContext('2d');
                                 var myChart = new Chart(ctx2, {
                                     type: 'doughnut',
                                     data: {
-                                        labels: arrayValorConta_@conta.NumeroConta,
+                                        labels: arrayLabel_@conta.NumeroConta,
                                         datasets: [{
                                             label: 'Balanco',
                                             data: arrayValorConta_@conta.NumeroConta,
-                                            backgroundColor: [
-                                                'rgba(54, 162, 235, 0.2)'
-                                            ],
-                                            borderColor: [
-                                                'rgba(54, 162, 235, 1)'
-                                            ],
+                                            backgroundColor: arrayColor_@conta.NumeroConta,
+                                            borderColor: arrayBorderColor_@conta.NumeroConta,
                                             borderWidth: 1
                                         }]
-                                    },
-                                    options: {
-                                        scales: {
-                                            yAxes: [{
-                                                ticks: {
-                                                    beginAtZero: true
-                                                }
-                                            }]
-                                        }
                                     }
                                 });
-
-                                var ctx3 = document.getElementById("chart3_@conta.NumeroConta").getContext('2d');
-                                var myChart = new Chart(ctx3, {
-                                    type: 'radar',
-                                    data: {
-                                        labels: ['Balanco', 'Balanco', 'Balanco'],
-                                        datasets: [{
-                                            label: 'teste',
-                                            data: [2,3,4],
-                                            backgroundColor: [
-                                                'rgba(54, 162, 235, 0.2)'
-                                            ],
-                                            borderColor: [
-                                                'rgba(54, 162, 235, 1)'
-                                            ],
-                                            borderWidth: 1
-                                        }]
-                                    },
-                                    options: {
-                                        scales: {
-                                            yAxes: [{
-                                                ticks: {
-                                                    beginAtZero: true
-                                                }
-                                            }]
-                                        }
-                                    }
-                                });
+                                
                             </script>
                         }
-                        <script>
-
-                        </script>
                     </div> <!-- end row -->
                 </div> <!-- end container -->
 

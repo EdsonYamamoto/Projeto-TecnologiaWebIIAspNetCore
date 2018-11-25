@@ -18,44 +18,40 @@
             <!-- Start content -->
             <div class="content">
                 <div class="container ">
-
-                    <h1>Bem vindo @ViewBag.Usuario.Nome</h1>
                     <script>
                         @ViewBag.ArrayContas
                     </script>
                     <div class="row m-t-50 panel">
                         @foreach (ContaModel conta in ViewBag.Contas)
                         {
-                        <div class="col-sm-12 col-md-6 col-lg-6">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h5 class="card-title">Conta @conta.NumeroConta</h5>
-                                    <h6 class="card-subtitle mb-2 text-muted">Dados da conta</h6>
-                                    <a href="#" class="card-link">Card link</a>
-                                    <a href="#" class="card-link">Another link</a>
-                                </div>
+                            <div class="col-sm-12 col-md-4 col-lg-4">
+                                <h5 class="card-title">Usuario: @ViewBag.Usuario.Nome</h5>
+                                <h6 class="card-subtitle mb-2 text-muted">Número da conta: @conta.NumeroConta</h6>
+                                <canvas id="chart1_@conta.NumeroConta" width="400" height="400"></canvas>
+                            </div>
+                            <div class="col-sm-12 col-md-4 col-lg-4">
+                                <h5 class="card-title">Usuario: @ViewBag.Usuario.Nome</h5>
+                                <h6 class="card-subtitle mb-2 text-muted">Número da conta: @conta.NumeroConta</h6>
+                                <canvas id="chart2_@conta.NumeroConta" width="400" height="400"></canvas>
+                            </div>
+                            <div class="col-sm-12 col-md-4 col-lg-4">
+                                <h5 class="card-title">Conta @conta.NumeroConta</h5>
+                                <h6 class="card-subtitle mb-2 text-muted">Número da conta: @conta.NumeroConta</h6>
+                                <canvas id="chart3_@conta.NumeroConta" width="400" height="400"></canvas>
                             </div>
 
-                            <canvas id="chart1_@conta.NumeroConta" width="400" height="400"></canvas>
-
-                        </div>
-
-                        <script>
+                            <script>
 
                                 var ctx = document.getElementById("chart1_@conta.NumeroConta").getContext('2d');
                                 var myChart = new Chart(ctx, {
                                     type: 'bar',
                                     data: {
-                                        labels: arrayValorConta_@conta.NumeroConta,
+                                        labels: arrayLabel_@conta.NumeroConta,
                                         datasets: [{
-                                            label: '# of Votes',
+                                            label: 'Balanco',
                                             data: arrayValorConta_@conta.NumeroConta,
-                                            backgroundColor: [
-                                                'rgba(54, 162, 235, 0.2)'
-                                            ],
-                                            borderColor: [
-                                                'rgba(54, 162, 235, 1)'
-                                            ],
+                                            backgroundColor: arrayColor_@conta.NumeroConta,
+                                            borderColor: arrayBorderColor_@conta.NumeroConta,
                                             borderWidth: 1
                                         }]
                                     },
@@ -69,11 +65,38 @@
                                         }
                                     }
                                 });
-                        </script>
-                        }
-                        <script>
 
-                        </script>
+                                var ctx2 = document.getElementById("chart2_@conta.NumeroConta").getContext('2d');
+                                var myChart = new Chart(ctx2, {
+                                    type: 'doughnut',
+                                    data: {
+                                        labels: arrayLabel_@conta.NumeroConta,
+                                        datasets: [{
+                                            label: 'Balanco',
+                                            data: arrayValorConta_@conta.NumeroConta,
+                                            backgroundColor: arrayColor_@conta.NumeroConta,
+                                            borderColor: arrayBorderColor_@conta.NumeroConta,
+                                            borderWidth: 1
+                                        }]
+                                    }
+                                });
+
+                                var ctx3 = document.getElementById("chart3_@conta.NumeroConta").getContext('2d');
+                                var myChart = new Chart(ctx3, {
+                                    type: 'radar',
+                                    data: {
+                                        labels: arrayLabel_@conta.NumeroConta,
+                                        datasets: [{
+                                            label: 'teste',
+                                            data: arrayValorConta_@conta.NumeroConta,
+                                            backgroundColor: arrayColor_@conta.NumeroConta,
+                                            borderColor: arrayBorderColor_@conta.NumeroConta,
+                                            borderWidth: 1
+                                        }]
+                                    }
+                                });
+                            </script>
+                        }
                     </div> <!-- end row -->
                 </div> <!-- end container -->
 

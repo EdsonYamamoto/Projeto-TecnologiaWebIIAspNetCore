@@ -51,15 +51,23 @@ namespace ProjetoTecWebAspNetCore.Controllers
 
             ViewBag.Usuario = user;
             ViewBag.Contas = userAccount;
+            Random rnd = new Random();
 
             StringBuilder sb = new StringBuilder();
             foreach (ContaModel conta in userAccount)
             {
                 sb.Append("var arrayValorConta_" + conta.NumeroConta+" = []; \n");
+                sb.Append("var arrayLabel_" + conta.NumeroConta + " = []; \n");
+                sb.Append("var arrayColor_" + conta.NumeroConta+" = []; \n");
+                sb.Append("var arrayBorderColor_" + conta.NumeroConta + " = []; \n");
                 foreach (BalancoModel balanco in conta.Balanco)
                 {
                     sb.Append("arrayValorConta_" + conta.NumeroConta + ".push(" + balanco.Valor + "); \n");
+                    sb.Append("arrayLabel_" + conta.NumeroConta + ".push('" + balanco.TipoGasto + "'); \n");
+                    sb.Append("arrayColor_" + conta.NumeroConta + ".push('rgba(" + rnd.Next(0, 255) + "," + rnd.Next(0, 255) + "," + rnd.Next(0, 255) + ",0.5)'); \n");
+                    sb.Append("arrayBorderColor_" + conta.NumeroConta + ".push('rgba(" + rnd.Next(0, 255) + "," + rnd.Next(0, 255) + "," + rnd.Next(0, 255) + ",1)'); \n");
                 }
+
             }
             ViewBag.ArrayContas = new HtmlString(sb.ToString());
             return View();
@@ -73,14 +81,22 @@ namespace ProjetoTecWebAspNetCore.Controllers
 
             ViewBag.Usuario = user;
             ViewBag.Contas = userAccount;
+            Random rnd = new Random();
 
             StringBuilder sb = new StringBuilder();
             foreach (ContaModel conta in userAccount)
             {
                 sb.Append("var arrayValorConta_" + conta.NumeroConta + " = []; \n");
+                sb.Append("var arrayLabel_" + conta.NumeroConta + " = []; \n");
+                sb.Append("var arrayColor_" + conta.NumeroConta + " = []; \n");
+                sb.Append("var arrayBorderColor_" + conta.NumeroConta + " = []; \n");
                 foreach (BalancoModel balanco in conta.Balanco)
                 {
+                    sb.Append("arrayLabel_" + conta.NumeroConta + ".push('" + balanco.TipoGasto + "'); \n");
                     sb.Append("arrayValorConta_" + conta.NumeroConta + ".push(" + balanco.Valor + "); \n");
+
+                    sb.Append("arrayColor_" + conta.NumeroConta + ".push('rgba(" + rnd.Next(0, 255) + "," + rnd.Next(0, 255) + "," + rnd.Next(0, 255) + ",0.5)'); \n");
+                    sb.Append("arrayBorderColor_" + conta.NumeroConta + ".push('rgba(" + rnd.Next(0, 255) + "," + rnd.Next(0, 255) + "," + rnd.Next(0, 255) + ",1)'); \n");
                 }
             }
             ViewBag.ArrayContas = new HtmlString(sb.ToString());
@@ -108,20 +124,23 @@ namespace ProjetoTecWebAspNetCore.Controllers
             return View();
         }
 
-        // POST: Conta/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
+        // POST: login/cadastrarBalanco
+        [HttpPost, ActionName("CadastrarBalanco")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> NovoBalanco([Bind("ID,UsuarioID,NumeroConta")] BalancoModel balancoModel)
+        public async Task<IActionResult> NovoBalanco(string contaID, string valor, string tipoGasto)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(balancoModel);
+                BalancoModel balancoModel = new BalancoModel();
+                balancoModel.ContaID = Convert.ToInt32(contaID);
+                balancoModel.TipoGasto = tipoGasto;
+                balancoModel.Valor = Convert.ToDouble(valor);
+
+                _context.Balancos.Add(balancoModel);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(CadastrarBalanco));
             }
-            return View(balancoModel);
+            return View(nameof(CadastrarBalanco));
         }
     }
 }

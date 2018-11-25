@@ -15,7 +15,7 @@ namespace ProjetoTecWebAspNetCore.Models
 
         public override string ToString()
         {
-            return Usuario.ToString()+' '+NumeroConta;
+            return UsuarioID.ToString() + ' '+NumeroConta;
         }
     }
 }
