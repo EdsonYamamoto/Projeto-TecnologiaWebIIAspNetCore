@@ -165,22 +165,20 @@ namespace ProjetoTecWebAspNetCore.Controllers
         }
 
         // POST: login/cadastrarBalanco
-        [HttpPost, ActionName("CadastrarBalanco")]
+        [HttpPost, ActionName("CadastrarBalancoPOST")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> NovoBalanco(string contaID, string valor, string tipoGasto)
+        public async Task<IActionResult> CadastrarBalancoPOST(string idUser, BalancoModel balanco)
         {
+            ContaRepository conRep = new ContaRepository(_context);
+            balanco.Conta = conRep.GetContaById(balanco.ContaID);
+
             if (ModelState.IsValid)
             {
-                BalancoModel balancoModel = new BalancoModel();
-                balancoModel.ContaID = Convert.ToInt32(contaID);
-                balancoModel.TipoGasto = tipoGasto;
-                balancoModel.Valor = Convert.ToDouble(valor);
-
-                _context.Balancos.Add(balancoModel);
+                _context.Balancos.Add(balanco);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(CadastrarBalanco));
+                return RedirectToAction(nameof(CadastrarBalanco), new { id = idUser });
             }
-            return View(nameof(CadastrarBalanco));
+            return RedirectToAction(nameof(CadastrarBalanco), new { id = idUser });
         }
 
         // POST: Cadastrar/cadastrarBalanco
