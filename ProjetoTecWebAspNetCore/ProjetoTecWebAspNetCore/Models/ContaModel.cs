@@ -13,6 +13,12 @@ namespace ProjetoTecWebAspNetCore.Models
         public int NumeroConta { get; set; }
         public List<BalancoModel> Balanco { get; set; }
 
+        public ContaModel()
+        {
+            Usuario = new UsuarioModel();
+            Balanco = new List < BalancoModel>();
+        }
+
         public override string ToString()
         {
             return UsuarioID.ToString() + ' '+NumeroConta;

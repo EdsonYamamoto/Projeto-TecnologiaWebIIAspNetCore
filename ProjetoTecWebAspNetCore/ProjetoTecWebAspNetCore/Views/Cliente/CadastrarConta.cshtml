@@ -1,6 +1,9 @@
-﻿@{
-}
+﻿
+@model ProjetoTecWebAspNetCore.Models.ContaModel
 
+@{
+    ViewData["Title"] = "IndexLogin";
+}
 <body class="fixed-left">
 
     <div id="wrapper">
@@ -20,39 +23,41 @@
                 <div class="container ">
 
                     <hr />
-                    <div class="row">
-                        <div class="col-md-4">
-                            teste
-                        </div>
-                        <div class="col-md-4">
-                            <form asp-action="CadastrarBalanco">
-                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="row m-t-50 panel">
+                        <div class="col-sm-12 col-md-6 col-lg-6">
+                            <h1>Cadastrar Conta</h1>
+                            <form asp-action="NovoContaPOST" method="post">
                                 <div class="form-group">
-                                    
-                                    <label lass="control-label"></label>
-                                    <input class="form-control" />
-                                    <!--
-                                    <label asp-for="Valor" class="control-label"></label>
-                                    <input asp-for="Vaçpr" class="form-control" />
-                                    <span asp-validation-for="" class="text-danger"></span>
-                                    -->
+
+                                    <label asp-for="NumeroConta" class="control-label"></label>
+                                    <input asp-for="NumeroConta" class="form-control" />
+                                    <span asp-validation-for="NumeroConta" class="text-danger"></span>
                                 </div>
-                                <div class="form-group">
-                                    
-                                    <label lass="control-label"></label>
-                                    <input class="form-control" />
-                                    <!--
-                                    <label asp-for="TipoGasto" class="control-label"></label>
-                                    <input asp-for="TipoGasto" class="form-control" />
-                                    <span asp-validation-for="TipoGasto" class="text-danger"></span>
-                                    -->
-                                </div>
+
+                                <input name="idUser" value="@ViewBag.Usuario.ID" type="hidden" />
                                 <div class="form-group">
                                     <input type="submit" value="CadastrarBalanco" class="btn btn-default" />
                                 </div>
                             </form>
                         </div>
+                        <div class="col-sm-12 col-md-6 col-lg-6">
+                            <h1>Contas cadastradas</h1>
+                            <table id="customers">
+                                <tr>
+                                    <td><h2>Nome</h2></td>
+                                    <td><h2>Numero Conta</h2> </td>
+                                </tr>
+                                @foreach (ContaModel conta in ViewBag.Contas)
+                                {
+                                    <tr>
+                                        <td> <h3>@conta.Usuario.Nome</h3> </td>
+                                        <td> <h3>@conta.NumeroConta</h3> </td>
+                                    </tr>
+                                }
+                            </table>
+                        </div>
                     </div>
+
                 </div> <!-- end container -->
 
             </div> <!-- content -->
