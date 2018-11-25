@@ -10,25 +10,20 @@ using ProjetoTecWebAspNetCore.Repository;
 
 namespace ProjetoTecWebAspNetCore.Controllers
 {
-    public class LoginController : Controller
+    public class ClienteController : Controller
     {
 
         private readonly AppContextModel _context;
 
-        public LoginController(AppContextModel context)
+        public ClienteController(AppContextModel context)
         {
             _context = context;
         }
 
         // GET: Login
-        public IActionResult IndexLogin()
+        public IActionResult Login()
         {
             return View();
-        }
-
-        public IActionResult Dashboard()
-        {
-           return RedirectToAction("Dashboard", "Home");
         }
 
         // POST: login/logar
@@ -39,16 +34,22 @@ namespace ProjetoTecWebAspNetCore.Controllers
             UsuarioRepository a = new UsuarioRepository(_context);
             UsuarioModel user =  a.AutenticationUser(email, senha);
             if (user!=null){
-                System.Diagnostics.Debug.WriteLine(user.ToString());
-
-                List<ContaModel> contasUsuario = a.ContasUsuario(user.ID);
-                foreach(ContaModel conta in contasUsuario)
-                    System.Diagnostics.Debug.WriteLine(conta.ToString());
-
-                return RedirectToAction(nameof(Dashboard));
+                return RedirectToAction("Dashboard", "Cliente", new { id = user.ID });
             } else {
-                return RedirectToAction(nameof(IndexLogin));
+                return RedirectToAction(nameof(Login));
             }
+        }
+        
+        public IActionResult Dashboard(string id)
+        {
+            UsuarioRepository a = new UsuarioRepository(_context);
+            UsuarioModel user = a.GetUsuarioById(Convert.ToInt32(id));
+            List<ContaModel> userAccount = a.ContasUsuario(user.ID);
+
+            ViewBag.Usuario = user;
+            ViewBag.Contas = userAccount;
+
+            return View();
         }
     }
 }

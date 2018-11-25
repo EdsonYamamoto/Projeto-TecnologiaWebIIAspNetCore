@@ -12,6 +12,5 @@ namespace ProjetoTecWebAspNetCore.Repository
         UsuarioModel GetUsuarioById(int usuarioId);
         UsuarioModel AutenticationUser(string email, string senha);
         List<ContaModel> ContasUsuario(int usuarioID);
-
     }
 }

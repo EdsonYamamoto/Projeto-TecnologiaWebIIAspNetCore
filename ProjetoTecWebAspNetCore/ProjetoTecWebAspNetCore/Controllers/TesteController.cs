@@ -37,6 +37,5 @@ namespace ProjetoTecWebAspNetCore.Controllers
         {
             return View();
         }
-
     }
 }

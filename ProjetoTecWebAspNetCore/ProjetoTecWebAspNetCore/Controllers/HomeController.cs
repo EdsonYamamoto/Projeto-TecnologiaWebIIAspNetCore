@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using ProjetoTecWebAspNetCore.Models;
+using ProjetoTecWebAspNetCore.Repository;
 
 namespace ProjetoTecWebAspNetCore.Controllers
 {
@@ -33,7 +34,6 @@ namespace ProjetoTecWebAspNetCore.Controllers
         {
             return View();
         }
-        
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

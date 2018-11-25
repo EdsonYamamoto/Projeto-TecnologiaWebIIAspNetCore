@@ -14,7 +14,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Update="Views\Home\Dashboard.cshtml">
+    <Content Update="Views\Cliente\Dashboard.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Shared\topbar - Cópia.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
     <Content Update="Views\Teste\Dashboard.cshtml">

@@ -16,7 +16,7 @@ namespace ProjetoTecWebAspNetCore.Models
 
         public override string ToString()
         {
-            return base.ToString();
+            return Valor+" "+ TipoGasto+ " "+ Data;
         }
     }
 }
