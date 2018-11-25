@@ -1,0 +1,118 @@
+﻿@{
+}
+
+<body class="fixed-left">
+
+    <div id="wrapper">
+
+        <!-- ========== Top Bar Start ========== -->
+        <partial name="~/Views/Shared/_TopBar.cshtml" />
+        <!-- Top Bar End -->
+        <!-- ========== Left Sidebar Start ========== -->
+        <partial name="~/Views/Shared/_LeftSideBar.cshtml" />
+        <!-- Left Sidebar End -->
+        <!-- ============================================================== -->
+        <!-- Start right Content here -->
+        <!-- ============================================================== -->
+        <div class="content-page" style="padding-top:50px;">
+            <!-- Start content -->
+            <div class="content">
+                <div class="container ">
+
+                    <h1>Bem vindo @ViewBag.Usuario.Nome</h1>
+                    <script>
+                        @ViewBag.ArrayContas
+                    </script>
+                    <div class="row m-t-50 panel">
+                        @foreach (ContaModel conta in ViewBag.Contas)
+                        {
+                        <div class="col-sm-12 col-md-6 col-lg-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Conta @conta.NumeroConta</h5>
+                                    <h6 class="card-subtitle mb-2 text-muted">Dados da conta</h6>
+                                    <a href="#" class="card-link">Card link</a>
+                                    <a href="#" class="card-link">Another link</a>
+                                </div>
+                            </div>
+
+                            <canvas id="chart1_@conta.NumeroConta" width="400" height="400"></canvas>
+
+                        </div>
+
+                        <script>
+
+                                var ctx = document.getElementById("chart1_@conta.NumeroConta").getContext('2d');
+                                var myChart = new Chart(ctx, {
+                                    type: 'bar',
+                                    data: {
+                                        labels: arrayValorConta_@conta.NumeroConta,
+                                        datasets: [{
+                                            label: '# of Votes',
+                                            data: arrayValorConta_@conta.NumeroConta,
+                                            backgroundColor: [
+                                                'rgba(54, 162, 235, 0.2)'
+                                            ],
+                                            borderColor: [
+                                                'rgba(54, 162, 235, 1)'
+                                            ],
+                                            borderWidth: 1
+                                        }]
+                                    },
+                                    options: {
+                                        scales: {
+                                            yAxes: [{
+                                                ticks: {
+                                                    beginAtZero: true
+                                                }
+                                            }]
+                                        }
+                                    }
+                                });
+                        </script>
+                        }
+                        <script>
+
+                        </script>
+                    </div> <!-- end row -->
+                </div> <!-- end container -->
+
+            </div> <!-- content -->
+
+        </div>
+        <!--Right Sidebar End -->
+
+    </div>
+    <!-- END wrapper -->
+
+    <script>
+        var resizefunc = [];
+    </script>
+
+    <!-- jQuery  -->
+    <!--
+    <script src="~/js/jquery.min.js"></script>
+    <script src="~/js/bootstrap.min.js"></script>
+        -->
+    <script src="~/js/detect.js"></script>
+    <script src="~/js/fastclick.js"></script>
+    <script src="~/js/jquery.blockUI.js"></script>
+    <script src="~/js/waves.js"></script>
+    <script src="~/js/jquery.slimscroll.js"></script>
+    <script src="~/js/jquery.scrollTo.min.js"></script>
+    <script src="~/plugins/switchery/switchery.min.js"></script>
+
+    <script type="text/javascript" src="~/plugins/parsleyjs/parsley.min.js"></script>
+
+    <!-- App js -->
+    <script src="~/js/jquery.core.js"></script>
+    <script src="~/js/jquery.app.js"></script>
+
+    <script>
+        $('#btn-add-user').click(event => {
+            event.preventDefault();
+            console.log('clicou');
+        });
+    </script>
+
+</body>

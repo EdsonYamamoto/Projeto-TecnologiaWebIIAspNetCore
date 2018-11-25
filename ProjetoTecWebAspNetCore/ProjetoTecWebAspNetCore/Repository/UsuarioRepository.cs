@@ -30,8 +30,12 @@ namespace ProjetoTecWebAspNetCore.Repository
             return _appContextModel.Usuarios.FirstOrDefault(p => p.Email == email && p.Senha == senha);
         }
         public List<ContaModel> ContasUsuario(int usuarioID)
-        {            
-            return _appContextModel.Contas.Where(p => p.UsuarioID == usuarioID).ToList();  
+        {
+            List<ContaModel> listaContas = _appContextModel.Contas.Where(p => p.UsuarioID == usuarioID).ToList();
+            foreach(ContaModel conta in listaContas){
+                conta.Balanco = _appContextModel.Balancos.Where(p => p.ContaID == conta.ID).ToList();
+            }
+            return listaContas;  
         }
     }
 }
