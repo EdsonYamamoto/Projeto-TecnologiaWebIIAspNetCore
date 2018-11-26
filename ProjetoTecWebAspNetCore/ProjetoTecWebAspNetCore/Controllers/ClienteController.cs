@@ -67,36 +67,45 @@ namespace ProjetoTecWebAspNetCore.Controllers
             List<ContaModel> userAccount = a.ContasUsuario(user.ID);
 
             ContaModel contaAux = new ContaModel(); 
+
             foreach (ContaModel conta in userAccount)
-            {
-                
                 foreach (BalancoModel balanco in conta.Balanco)
-                {
                     contaAux.Balanco.Add(balanco);
-                }
-
+            
+            int qtdRegistrados = 0;
+            int sociosRegistrados = 0;
+            double GastoTotais = 0;
+            double GanhosTotais = 0;
+            foreach (BalancoModel balanco in contaAux.Balanco)
+            {
+                if (balanco.Valor<0)
+                    GastoTotais += balanco.Valor;
+                if (balanco.Valor>0)
+                    GanhosTotais += balanco.Valor;
+                qtdRegistrados++;
             }
-
             ViewBag.Usuario = user;
             ViewBag.Contas = userAccount;
+            ViewBag.GastoTotais = GastoTotais;
+            ViewBag.GanhosTotais = GanhosTotais;
+            ViewBag.qtdRegistro = qtdRegistrados;
+            ViewBag.qtdSocios = sociosRegistrados;
+            ViewBag.Conta = contaAux;
             Random rnd = new Random();
 
             StringBuilder sb = new StringBuilder();
-            foreach (ContaModel conta in userAccount)
-            {
-                sb.Append("var arrayValorConta_" + conta.NumeroConta+" = []; \n");
-                sb.Append("var arrayLabel_" + conta.NumeroConta + " = []; \n");
-                sb.Append("var arrayColor_" + conta.NumeroConta+" = []; \n");
-                sb.Append("var arrayBorderColor_" + conta.NumeroConta + " = []; \n");
-                foreach (BalancoModel balanco in conta.Balanco)
+                sb.Append("var arrayValorConta = []; \n");
+                sb.Append("var arrayLabel = []; \n");
+                sb.Append("var arrayColor = []; \n");
+                sb.Append("var arrayBorderColor = []; \n");
+                foreach (BalancoModel balanco in contaAux.Balanco)
                 {
-                    sb.Append("arrayValorConta_" + conta.NumeroConta + ".push(" + balanco.Valor + "); \n");
-                    sb.Append("arrayLabel_" + conta.NumeroConta + ".push('" + balanco.TipoGasto + "'); \n");
-                    sb.Append("arrayColor_" + conta.NumeroConta + ".push('rgba(" + rnd.Next(0, 255) + "," + rnd.Next(0, 255) + "," + rnd.Next(0, 255) + ",0.5)'); \n");
-                    sb.Append("arrayBorderColor_" + conta.NumeroConta + ".push('rgba(" + rnd.Next(0, 255) + "," + rnd.Next(0, 255) + "," + rnd.Next(0, 255) + ",1)'); \n");
+                    sb.Append("arrayValorConta.push(" + balanco.Valor + "); \n");
+                    sb.Append("arrayLabel.push('" + balanco.TipoGasto + "'); \n");
+                    sb.Append("arrayColor.push('rgba(" + rnd.Next(0, 255) + "," + rnd.Next(0, 255) + "," + rnd.Next(0, 255) + ",0.5)'); \n");
+                    sb.Append("arrayBorderColor.push('rgba(" + rnd.Next(0, 255) + "," + rnd.Next(0, 255) + "," + rnd.Next(0, 255) + ",1)'); \n");
                 }
-
-            }
+                
             ViewBag.ArrayContas = new HtmlString(sb.ToString());
             return View();
         }
@@ -151,6 +160,21 @@ namespace ProjetoTecWebAspNetCore.Controllers
             ViewBag.ArrayContas = new HtmlString(sb.ToString());
             return View();
         }
+
+        public IActionResult Chat(string id)
+        {
+            ConversaRepository conRep = new ConversaRepository(_context);
+            List<ConversaModel> conversas = conRep.GetConversaByUserID(Convert.ToInt32(id));
+
+            UsuarioRepository useRep = new UsuarioRepository(_context);
+            UsuarioModel user = useRep.GetUsuarioById(Convert.ToInt32(id));
+
+            ViewBag.Usuario = user;
+            ViewBag.Conversas = conversas;
+
+            return View();
+        }
+
         public IActionResult CadastrarConta(string id)
         {
             UsuarioRepository a = new UsuarioRepository(_context);
@@ -193,7 +217,7 @@ namespace ProjetoTecWebAspNetCore.Controllers
                 ContaModel contaModel = new ContaModel();
                 contaModel.NumeroConta = Convert.ToInt32(numeroConta);
                 contaModel.Usuario = user;
-                contaModel.UsuarioID = Convert.ToInt32(numeroConta);
+                contaModel.UsuarioID = Convert.ToInt32(idUser);
                 contaModel.Balanco = new List<BalancoModel>();
 
                 _context.Contas.Add(contaModel);

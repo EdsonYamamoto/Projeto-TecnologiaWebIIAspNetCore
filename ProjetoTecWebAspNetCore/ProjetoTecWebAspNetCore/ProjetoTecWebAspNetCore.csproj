@@ -23,7 +23,7 @@
     <Content Update="Views\Cliente\Relatorio.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
-    <Content Update="Views\Cliente\Dashboard - Cópia.cshtml">
+    <Content Update="Views\Cliente\Chat.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
     <Content Update="Views\Cliente\Dashboard.cshtml">

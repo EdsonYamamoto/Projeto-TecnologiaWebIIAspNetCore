@@ -1,0 +1,84 @@
+﻿@{
+}
+
+<body class="fixed-left">
+
+    <div id="wrapper">
+
+        <!-- ========== Top Bar Start ========== -->
+        <partial name="~/Views/Shared/_TopBar.cshtml" />
+        <!-- Top Bar End -->
+        <!-- ========== Left Sidebar Start ========== -->
+        <partial name="~/Views/Shared/_LeftSideBar.cshtml" />
+        <!-- Left Sidebar End -->
+        <!-- ============================================================== -->
+        <!-- Start right Content here -->
+        <!-- ============================================================== -->
+
+        <div class="content-page" style="padding-top:50px;">
+            
+            <!-- Start content -->
+            <div class="content">
+                <div class="container ">
+                    <h1>Owl chat</h1>
+                    <div class="row m-t-50 panel">
+
+                        @foreach(ConversaModel conversa in ViewBag.Conversas)
+                        {
+                        <div style="border:2px solid black; border-radius: 25px; margin-bottom:4px;">
+                            <div style="margin:10px;">
+                                <h2> <img src="~/images/usuario.jpg" alt="Avatar" style="width:50px; height:50px;"> @conversa.IdUsuario </h2>
+
+                            </div>
+                            <div style="padding:15px;">
+                                <p> @conversa.Mensagem </p>
+                            </div>
+
+                            <div class="text-right" style="padding:10px;">
+                                <span class="time-right"> @conversa.Horiario</span>
+                            </div>
+                        </div>
+                        }
+
+                    </div> <!-- end row -->
+                </div> <!-- end container -->
+
+            </div> <!-- content -->
+
+        </div>
+        <!--Right Sidebar End -->
+
+    </div>
+    <!-- END wrapper -->
+
+    <script>
+        var resizefunc = [];
+    </script>
+
+    <!-- jQuery  -->
+    <!--
+    <script src="~/js/jquery.min.js"></script>
+    <script src="~/js/bootstrap.min.js"></script>
+        -->
+    <script src="~/js/detect.js"></script>
+    <script src="~/js/fastclick.js"></script>
+    <script src="~/js/jquery.blockUI.js"></script>
+    <script src="~/js/waves.js"></script>
+    <script src="~/js/jquery.slimscroll.js"></script>
+    <script src="~/js/jquery.scrollTo.min.js"></script>
+    <script src="~/plugins/switchery/switchery.min.js"></script>
+
+    <script type="text/javascript" src="~/plugins/parsleyjs/parsley.min.js"></script>
+
+    <!-- App js -->
+    <script src="~/js/jquery.core.js"></script>
+    <script src="~/js/jquery.app.js"></script>
+
+    <script>
+        $('#btn-add-user').click(event => {
+            event.preventDefault();
+            console.log('clicou');
+        });
+    </script>
+
+</body>

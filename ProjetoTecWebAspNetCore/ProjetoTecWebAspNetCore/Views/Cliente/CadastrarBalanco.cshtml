@@ -20,29 +20,10 @@
             <!-- Start content -->
             <div class="content">
                 <div class="container ">
-
-                    <hr />
+                    <h1>Owl cadastro balanco</h1>
                     <div class="row">
                         <div class="col-sm-12 col-md-6 col-lg-6">
-
-                            @foreach (ContaModel conta in ViewBag.Contas)
-                            {
-                            <table id="customers" style="margin:10px;">
-                                <tr>
-                                    <td><h2>Tipo Gasto</h2></td>
-                                    <td><h2>Valor</h2> </td>
-                                </tr>
-                                @foreach (BalancoModel balanco in conta.Balanco)
-                                {
-                                <tr>
-                                    <td> <h3>@balanco.TipoGasto</h3> </td>
-                                    <td> <h3>@balanco.Valor</h3> </td>
-                                </tr>
-                                }
-                            </table>
-                             }
-                            </div>
-                        <div class="col-sm-12 col-md-6 col-lg-6">
+                            <h1>Cadastrar Conta</h1>
                             <form asp-action="CadastrarBalancoPOST">
                                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                                 <div class="form-group">
@@ -76,6 +57,32 @@
                                     <input type="submit" value="CadastrarBalanco" class="btn btn-default" />
                                 </div>
                             </form>
+                        </div>
+                        <div class="col-sm-12 col-md-6 col-lg-6">
+                            <h1>Cadastrar balanco</h1>
+
+                            @foreach (ContaModel conta in ViewBag.Contas)
+                            {
+                                
+                                <div class="" style="padding:10px;">
+                                    <h2>Conta: @conta.NumeroConta</h2>
+                                    <h3>Nome: @conta.Usuario.Nome</h3>
+
+                                    <table id="customers" style="margin:10px;">
+                                        <tr>
+                                            <td><h2>Tipo Gasto</h2></td>
+                                            <td><h2>Valor</h2> </td>
+                                        </tr>
+                                        @foreach (BalancoModel balanco in conta.Balanco)
+                                        {
+                                            <tr>
+                                                <td> <h3>@balanco.TipoGasto</h3> </td>
+                                                <td> <h3>@balanco.Valor</h3> </td>
+                                            </tr>
+                                        }
+                                    </table>
+                                </div>
+                            }
                         </div>
                     </div>
                 </div> <!-- end container -->

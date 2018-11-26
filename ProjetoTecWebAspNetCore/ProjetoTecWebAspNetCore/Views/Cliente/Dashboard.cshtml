@@ -18,28 +18,29 @@
             <!-- Start content -->
             <div class="content">
                 <div class="container ">
+                    <h1>Owl Dashboard</h1>
                     <script>
                         @ViewBag.ArrayContas
                     </script>
                     <div class="row m-t-50 panel">
                         <div class="col-sm-12 col-md-4 col-lg-3">
                             <div class="jumbotron" style="padding: 20px">
-                                <h3><i class="ti-shopping-cart"></i> Basic card</h3>
+                                <h3><i class="ti-shopping-cart"></i> Market card</h3>
                             </div>
                             <div class="bg-primary jumbotron" style="padding: 20px">
-                                <div class="card-body"><h3><i class="ti-heart"></i> Primary card</h3></div>
+                                <div class="card-body"><h3><i class="ti-heart"></i> Health card</h3></div>
                             </div>
                             <div class="bg-success jumbotron" style="padding: 20px">
-                               <h3><i class="ti-car"></i> Success card</h3>
+                                <h3><i class="ti-car"></i> Transport card</h3>
                             </div>
                             <div class=" bg-info jumbotron" style="padding: 20px">
-                                <h3><i class="ti-ticket"></i> Info card</h3>
+                                <h3><i class="ti-ticket"></i> Entertainment card</h3>
                             </div>
                             <div class=" bg-warning jumbotron" style="padding: 20px">
-                                <h3><i class="ti-gift"></i> Warning card</h3>
+                                <h3><i class="ti-gift"></i> Present card</h3>
                             </div>
                             <div class=" bg-danger jumbotron" style="padding: 20px">
-                                <h3><i class="ti-credit-card"></i> Danger card</h3>
+                                <h3><i class="ti-credit-card"></i> Credit card</h3>
                             </div>
                             <div class=" bg-secondary jumbotron" style="padding: 20px">
                                 <div class="">Secondary card</div>
@@ -51,33 +52,45 @@
                                 <div class="">Light card</div>
                             </div>
                         </div>
-                        @foreach (ContaModel conta in ViewBag.Contas)
-                        {
-                            <div class="col-sm-12 col-md-4 col-lg-4">
-                                <h3 class="card-title">Conta usuario: @conta.Usuario.Nome</h3>
-                                <h4 class="card-subtitle mb-2 text-muted">Dados da conta: @conta.NumeroConta</h4>
-                                <canvas id="chart2_@conta.NumeroConta" width="400" height="400"></canvas>
-                            </div>
 
-                            <script>
-                                
-                                var ctx2 = document.getElementById("chart2_@conta.NumeroConta").getContext('2d');
-                                var myChart = new Chart(ctx2, {
-                                    type: 'doughnut',
-                                    data: {
-                                        labels: arrayLabel_@conta.NumeroConta,
-                                        datasets: [{
-                                            label: 'Balanco',
-                                            data: arrayValorConta_@conta.NumeroConta,
-                                            backgroundColor: arrayColor_@conta.NumeroConta,
-                                            borderColor: arrayBorderColor_@conta.NumeroConta,
-                                            borderWidth: 1
-                                        }]
-                                    }
-                                });
-                                
-                            </script>
-                        }
+                        <div class="col-sm-12 col-md-4 col-lg-4">
+                            <h3 class="card-title">Conta usuario: @ViewBag.Usuario.Nome</h3>
+                            <canvas id="chart1" width="400" height="400"></canvas>
+                        </div>
+
+                        <div class="col-sm-12 col-md-4 col-lg-4">
+                            <div class=" bg-danger jumbotron" style="padding: 20px">
+                                <h3><i class="ti-money"></i> Gastos totais: R$ @ViewBag.GastoTotais </h3>
+                            </div>
+                            <div class="bg-primary jumbotron" style="padding: 20px">
+                                <h3><i class="ti-money"></i> Ganhos totais: R$ @ViewBag.GanhosTotais </h3>
+                            </div>
+                            <div class="bg-success jumbotron" style="padding: 20px">
+                                <h3><i class="ti-user"></i> Qtd pessoas: @ViewBag.qtdSocios </h3>
+                            </div>
+                            <div class=" bg-info jumbotron" style="padding: 20px">
+                                <h3><i class="ti-pencil-alt"></i> Qtd Registros: @ViewBag.qtdRegistro </h3>
+                            </div>
+                        </div>
+                        <script>
+
+                            var ctx2 = document.getElementById("chart1").getContext('2d');
+                            var myChart = new Chart(ctx2, {
+                                type: 'doughnut',
+                                data: {
+                                    labels: arrayLabel,
+                                    datasets: [{
+                                        label: 'Balanco',
+                                        data: arrayValorConta,
+                                        backgroundColor: arrayColor,
+                                        borderColor: arrayBorderColor,
+                                        borderWidth: 1
+                                    }]
+                                }
+                            });
+
+                        </script>
+
                     </div> <!-- end row -->
                 </div> <!-- end container -->
 
