@@ -226,5 +226,22 @@ namespace ProjetoTecWebAspNetCore.Controllers
             }
             return View(nameof(CadastrarConta), new { id = idUser });
         }
+
+
+        // POST: login/cadastrarBalanco
+        [HttpPost, ActionName("ChatPOST")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ChatPOST(string idUser, ConversaModel conversa)
+        {
+            ContaRepository conRep = new ContaRepository(_context);
+            UsuarioRepository userRep = new UsuarioRepository(_context);
+            conversa.Usuario = userRep.GetUsuarioById(Convert.ToInt32( idUser));
+            conversa.IdUsuario = Convert.ToInt32(idUser);
+            conversa.Horiario = DateTime.Now;
+
+            _context.Conversas.Add(conversa);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Chat), new { id = idUser });
+        }
     }
 }

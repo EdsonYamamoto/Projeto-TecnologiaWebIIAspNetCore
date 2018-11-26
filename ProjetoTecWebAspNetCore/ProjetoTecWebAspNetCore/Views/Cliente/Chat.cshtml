@@ -1,4 +1,5 @@
 ﻿@{
+    @model ProjetoTecWebAspNetCore.Models.ConversaModel
 }
 
 <body class="fixed-left">
@@ -16,29 +17,43 @@
         <!-- ============================================================== -->
 
         <div class="content-page" style="padding-top:50px;">
-            
+
             <!-- Start content -->
             <div class="content">
                 <div class="container ">
                     <h1>Owl chat</h1>
                     <div class="row m-t-50 panel">
 
-                        @foreach(ConversaModel conversa in ViewBag.Conversas)
+                        @foreach (ConversaModel conversa in ViewBag.Conversas)
                         {
-                        <div style="border:2px solid black; border-radius: 25px; margin-bottom:4px;">
-                            <div style="margin:10px;">
-                                <h2> <img src="~/images/usuario.jpg" alt="Avatar" style="width:50px; height:50px;"> @conversa.IdUsuario </h2>
+                            <div style="border:2px solid black; border-radius: 25px; margin-bottom:4px;">
+                                <div style="margin:10px;">
+                                    <h2> <img src="~/images/usuario.jpg" alt="Avatar" style="width:50px; height:50px;"> @conversa.IdUsuario </h2>
 
-                            </div>
-                            <div style="padding:15px;">
-                                <p> @conversa.Mensagem </p>
-                            </div>
+                                </div>
+                                <div style="padding:15px;">
+                                    <p> @conversa.Mensagem </p>
+                                </div>
 
-                            <div class="text-right" style="padding:10px;">
-                                <span class="time-right"> @conversa.Horiario</span>
+                                <div class="text-right" style="padding:10px;">
+                                    <span class="time-right"> @conversa.Horiario</span>
+                                </div>
                             </div>
-                        </div>
                         }
+
+                            <form asp-action="ChatPOST" method="post">
+                                <div class="form-group">
+                                    <label asp-for="Mensagem" class="control-label"></label>
+                                    <input asp-for="Mensagem" class="form-control" />
+                                    <span asp-validation-for="Mensagem" class="text-danger"></span>
+                                </div>
+
+                                <input type="hidden" name="idUser" value="@ViewBag.Usuario.ID" />
+
+                                <div class="form-group">
+                                    <input type="submit" value="Enviar mensagem" class="btn btn-default" />
+                                </div>
+                            </form>
 
                     </div> <!-- end row -->
                 </div> <!-- end container -->

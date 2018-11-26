@@ -8,7 +8,6 @@ namespace ProjetoTecWebAspNetCore.Repository
 {
     public class ContaRepository : IContaRepositorycs
     {
-
         private readonly AppContextModel _appContextModel;
 
         public ContaRepository(AppContextModel appContextModel)
@@ -29,6 +28,7 @@ namespace ProjetoTecWebAspNetCore.Repository
         public List<ContaModel> GetContaByUserID(int usuarioID)
         {
             List<ContaModel> a = new List<ContaModel>();
+            a = _appContextModel.Contas.Where(p=>p.UsuarioID == usuarioID).ToList();
             //System.Diagnostics.Debug.Print(_appContextModel.Contas.Select(p => p.UsuarioID == usuarioID));
             return a;
         }
