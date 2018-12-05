@@ -45,7 +45,24 @@ namespace ProjetoTecWebAspNetCore
             })
             );
 
+
+            //configura o provedor de sessão na memória
+            services.AddDistributedMemoryCache();
+            //habilita o provedor TempData baseado em sessão. Por padrao é habilitado o cookie
+            services.AddMvc().AddSessionStateTempDataProvider();
+
+            services.AddSession(options =>
+            {
+               
+                options.IdleTimeout = TimeSpan.FromSeconds(10);//tempo para timeOut
+                options.Cookie.Name = ".AdventureWorks.Session";
+            });
+
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+           
+
         }
 
 
@@ -65,6 +82,7 @@ namespace ProjetoTecWebAspNetCore
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
+            app.UseSession();
 
             app.UseMvc(routes =>
             {

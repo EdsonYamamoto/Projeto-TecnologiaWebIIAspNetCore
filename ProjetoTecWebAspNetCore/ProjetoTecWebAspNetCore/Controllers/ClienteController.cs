@@ -10,6 +10,7 @@ using ProjetoTecWebAspNetCore.Repository;
 using System.Text;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Html;
+using Microsoft.AspNetCore.Session;
 
 namespace ProjetoTecWebAspNetCore.Controllers
 {
@@ -17,6 +18,7 @@ namespace ProjetoTecWebAspNetCore.Controllers
     {
 
         private readonly AppContextModel _context;
+
 
         public ClienteController(AppContextModel context)
         {
@@ -31,15 +33,18 @@ namespace ProjetoTecWebAspNetCore.Controllers
 
         // POST: login/logar
         [HttpPost, ActionName("Logar")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> UserConfirmed(string email, string senha)
+        [ValidateAntiForgeryToken] 
+        public IActionResult UserConfirmed(string email, string senha)
         {
             UsuarioRepository a = new UsuarioRepository(_context);
-            UsuarioModel user =  a.AutenticationUser(email, senha);
-            if (user!=null){
-                //return RedirectToAction("Dashboard", "Cliente", new { id = user.ID });
+            UsuarioModel user = a.AutenticationUser(email, senha);
+            if (user != null)
+            {
+                TempData["user"] = user.ID;
                 return RedirectToAction(nameof(Dashboard), new { id = user.ID });
-            } else {
+            }
+            else
+            {
                 return RedirectToAction(nameof(Login));
             }
         }
@@ -65,35 +70,36 @@ namespace ProjetoTecWebAspNetCore.Controllers
             UsuarioRepository a = new UsuarioRepository(_context);
             UsuarioModel user = a.GetUsuarioById(Convert.ToInt32(id));
             List<ContaModel> userAccount = a.ContasUsuario(user.ID);
+            ContaModel contaAux = new ContaModel();
 
-            ContaModel contaAux = new ContaModel(); 
-
-            foreach (ContaModel conta in userAccount)
-                foreach (BalancoModel balanco in conta.Balanco)
-                    contaAux.Balanco.Add(balanco);
-            
-            int qtdRegistrados = 0;
-            int sociosRegistrados = 0;
-            double GastoTotais = 0;
-            double GanhosTotais = 0;
-            foreach (BalancoModel balanco in contaAux.Balanco)
+            if (TempData["user"] != null)
             {
-                if (balanco.Valor<0)
-                    GastoTotais += balanco.Valor;
-                if (balanco.Valor>0)
-                    GanhosTotais += balanco.Valor;
-                qtdRegistrados++;
-            }
-            ViewBag.Usuario = user;
-            ViewBag.Contas = userAccount;
-            ViewBag.GastoTotais = GastoTotais;
-            ViewBag.GanhosTotais = GanhosTotais;
-            ViewBag.qtdRegistro = qtdRegistrados;
-            ViewBag.qtdSocios = sociosRegistrados;
-            ViewBag.Conta = contaAux;
-            Random rnd = new Random();
+                foreach (ContaModel conta in userAccount)
+                    foreach (BalancoModel balanco in conta.Balanco)
+                        contaAux.Balanco.Add(balanco);
 
-            StringBuilder sb = new StringBuilder();
+                int qtdRegistrados = 0;
+                int sociosRegistrados = 0;
+                double GastoTotais = 0;
+                double GanhosTotais = 0;
+                foreach (BalancoModel balanco in contaAux.Balanco)
+                {
+                    if (balanco.Valor < 0)
+                        GastoTotais += balanco.Valor;
+                    if (balanco.Valor > 0)
+                        GanhosTotais += balanco.Valor;
+                    qtdRegistrados++;
+                }
+                ViewBag.Usuario = user;
+                ViewBag.Contas = userAccount;
+                ViewBag.GastoTotais = GastoTotais;
+                ViewBag.GanhosTotais = GanhosTotais;
+                ViewBag.qtdRegistro = qtdRegistrados;
+                ViewBag.qtdSocios = sociosRegistrados;
+                ViewBag.Conta = contaAux;
+                Random rnd = new Random();
+
+                StringBuilder sb = new StringBuilder();
                 sb.Append("var arrayValorConta = []; \n");
                 sb.Append("var arrayLabel = []; \n");
                 sb.Append("var arrayColor = []; \n");
@@ -105,10 +111,32 @@ namespace ProjetoTecWebAspNetCore.Controllers
                     sb.Append("arrayColor.push('rgba(" + rnd.Next(0, 255) + "," + rnd.Next(0, 255) + "," + rnd.Next(0, 255) + ",0.5)'); \n");
                     sb.Append("arrayBorderColor.push('rgba(" + rnd.Next(0, 255) + "," + rnd.Next(0, 255) + "," + rnd.Next(0, 255) + ",1)'); \n");
                 }
-                
-            ViewBag.ArrayContas = new HtmlString(sb.ToString());
-            return View();
+
+                ViewBag.ArrayContas = new HtmlString(sb.ToString());
+                TempData["user"] = user.ID; 
+                return View();
+            }
+            else
+            {
+                return RedirectToAction(nameof(Login));
+            }
+            
         }
+        
+
+        /*
+         
+             
+             
+             
+             aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+             
+             
+             
+             
+             
+             
+             */
 
         public IActionResult Relatorio(string id)
         {
@@ -116,28 +144,39 @@ namespace ProjetoTecWebAspNetCore.Controllers
             UsuarioModel user = a.GetUsuarioById(Convert.ToInt32(id));
             List<ContaModel> userAccount = a.ContasUsuario(user.ID);
 
-            ViewBag.Usuario = user;
-            ViewBag.Contas = userAccount;
-            Random rnd = new Random();
-
-            StringBuilder sb = new StringBuilder();
-            foreach (ContaModel conta in userAccount)
+            if (TempData["user"] != null)
             {
-                sb.Append("var arrayValorConta_" + conta.NumeroConta + " = []; \n");
-                sb.Append("var arrayLabel_" + conta.NumeroConta + " = []; \n");
-                sb.Append("var arrayColor_" + conta.NumeroConta + " = []; \n");
-                sb.Append("var arrayBorderColor_" + conta.NumeroConta + " = []; \n");
-                foreach (BalancoModel balanco in conta.Balanco)
-                {
-                    sb.Append("arrayLabel_" + conta.NumeroConta + ".push('" + balanco.TipoGasto + "'); \n");
-                    sb.Append("arrayValorConta_" + conta.NumeroConta + ".push(" + balanco.Valor + "); \n");
+                ViewBag.Usuario = user;
+                ViewBag.Contas = userAccount;
+                Random rnd = new Random();
 
-                    sb.Append("arrayColor_" + conta.NumeroConta + ".push('rgba(" + rnd.Next(0, 255) + "," + rnd.Next(0, 255) + "," + rnd.Next(0, 255) + ",0.5)'); \n");
-                    sb.Append("arrayBorderColor_" + conta.NumeroConta + ".push('rgba(" + rnd.Next(0, 255) + "," + rnd.Next(0, 255) + "," + rnd.Next(0, 255) + ",1)'); \n");
+                StringBuilder sb = new StringBuilder();
+                foreach (ContaModel conta in userAccount)
+                {
+                    sb.Append("var arrayValorConta_" + conta.NumeroConta + " = []; \n");
+                    sb.Append("var arrayLabel_" + conta.NumeroConta + " = []; \n");
+                    sb.Append("var arrayColor_" + conta.NumeroConta + " = []; \n");
+                    sb.Append("var arrayBorderColor_" + conta.NumeroConta + " = []; \n");
+                    foreach (BalancoModel balanco in conta.Balanco)
+                    {
+                        sb.Append("arrayLabel_" + conta.NumeroConta + ".push('" + balanco.TipoGasto + "'); \n");
+                        sb.Append("arrayValorConta_" + conta.NumeroConta + ".push(" + balanco.Valor + "); \n");
+
+                        sb.Append("arrayColor_" + conta.NumeroConta + ".push('rgba(" + rnd.Next(0, 255) + "," + rnd.Next(0, 255) + "," + rnd.Next(0, 255) + ",0.5)'); \n");
+                        sb.Append("arrayBorderColor_" + conta.NumeroConta + ".push('rgba(" + rnd.Next(0, 255) + "," + rnd.Next(0, 255) + "," + rnd.Next(0, 255) + ",1)'); \n");
+                    }
                 }
+                ViewBag.ArrayContas = new HtmlString(sb.ToString());
+                TempData["user"] = user.ID;
+                return View();
             }
-            ViewBag.ArrayContas = new HtmlString(sb.ToString());
-            return View();
+            else
+            {
+                return RedirectToAction(nameof(Login));
+            }
+
+
+            
         }
 
         public IActionResult CadastrarBalanco(string id)
