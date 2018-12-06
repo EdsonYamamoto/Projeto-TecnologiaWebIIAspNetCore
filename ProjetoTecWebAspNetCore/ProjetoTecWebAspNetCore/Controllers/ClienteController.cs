@@ -124,20 +124,6 @@ namespace ProjetoTecWebAspNetCore.Controllers
         }
         
 
-        /*
-         
-             
-             
-             
-             aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-             
-             
-             
-             
-             
-             
-             */
-
         public IActionResult Relatorio(string id)
         {
             UsuarioRepository a = new UsuarioRepository(_context);

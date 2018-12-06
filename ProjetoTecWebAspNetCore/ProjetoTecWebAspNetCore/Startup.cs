@@ -54,15 +54,11 @@ namespace ProjetoTecWebAspNetCore
             services.AddSession(options =>
             {
                
-                options.IdleTimeout = TimeSpan.FromSeconds(10);//tempo para timeOut
+                options.IdleTimeout = TimeSpan.FromSeconds(20);//tempo para timeOut
                 options.Cookie.Name = ".AdventureWorks.Session";
             });
 
-
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-
-           
-
         }
 
 
